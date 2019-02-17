@@ -1,15 +1,15 @@
+import styled from '@emotion/styled'
+import { ContentWidthWrapper } from 'components/atoms/ContentWidthWrapper';
 import { injectGlobal } from 'emotion'
+import emotionReset from 'emotion-reset'
 import React from 'react'
 
 injectGlobal`
-  html, body {
-    padding: 3rem 1rem;
-    margin: 0;
-    background: papayawhip;
-    min-height: 100%;
-    font-family: Helvetica, Arial, sans-serif;
-    font-size: 24px;
-  }
+  ${emotionReset}
+`
+
+const ContentWrapper = styled(ContentWidthWrapper)`
+  min-height: 800px;
 `
 
 export type PageTemplatePropsType = {
@@ -23,7 +23,9 @@ const PageTemplate = ({
   children,
 }: PageTemplatePropsType) => (<React.Fragment>
   {header}
-  {children}
+  <ContentWrapper>
+    {children}
+  </ContentWrapper>
   {footer}
 </React.Fragment>)
 

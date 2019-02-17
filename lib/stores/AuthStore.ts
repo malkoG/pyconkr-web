@@ -18,13 +18,12 @@ export class AuthStore {
     this.state = 'pending'
     const result = await fetch('https://jsonplaceholder.typicode.com/todos/1')
     const data = await result.json()
-    console.log(data)
   }
 
   @action
   async getToken (code: any) {
     const token = await getAuthToken(client)({ clientId: 'clientId', oauthType: 'github', code })
-    debugger; 
+    debugger;
     console.log(token)
   }
 }

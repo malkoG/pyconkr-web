@@ -17,10 +17,10 @@ class Index extends React.Component<{stores: MobxStores}> {
       const { stores } = this.props
 
       // await stores.authStore.login()
-      debugger;
-      // if (location.search.indexOf('code') === -1) return
+      if (location.search.indexOf('code') === -1) return
       const { code } = parse(location.search, { ignoreQueryPrefix: true })
-      await stores.authStore.getToken(code)
+      console.log(location)
+      // await stores.authStore.getToken(code)
     }
 
     render () {
