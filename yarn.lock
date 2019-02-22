@@ -5153,6 +5153,11 @@ ts-node@^8.0.2:
     source-map-support "^0.5.6"
     yn "^3.0.0"
 
+ts-transform-async-to-mobx-flow@^0.0.8:
+  version "0.0.8"
+  resolved "https://registry.yarnpkg.com/ts-transform-async-to-mobx-flow/-/ts-transform-async-to-mobx-flow-0.0.8.tgz#e1a3081ba1066a39da1b6e0becd5afae65d836bf"
+  integrity sha512-67DC85GxTXRoEBUw/pPXtNTTWp3lspW2vlsljbUCPCkk21C4xQ/kf5e2jdD86kXzTPj49Froa/ZCMyot0YBYdA==
+
 tslib@1.9.0:
   version "1.9.0"
   resolved "https://registry.yarnpkg.com/tslib/-/tslib-1.9.0.tgz#e37a86fda8cbbaf23a057f473c9f4dc64e5fc2e8"

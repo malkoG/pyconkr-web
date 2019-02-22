@@ -16,6 +16,7 @@
     "strict": true,
     "target": "esnext",
     "experimentalDecorators": true,
-    "baseUrl": "."
+    "baseUrl": ".",
+    "plugins": [{ "transform": "ts-transform-async-to-mobx-flow", "type": "config" }]
   }
 }
