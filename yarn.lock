@@ -4622,6 +4622,11 @@ serialize-javascript@^1.4.0:
   resolved "https://registry.yarnpkg.com/serialize-javascript/-/serialize-javascript-1.6.1.tgz#4d1f697ec49429a847ca6f442a2a755126c4d879"
   integrity sha512-A5MOagrPFga4YaKQSWHryl7AXvbQkEqpw4NNYMTNYUNV51bA8ABHgYFpqKx+YFFrw59xMV1qGH1R4AgoNIVgCw==
 
+serializr@^1.4.1:
+  version "1.4.1"
+  resolved "https://registry.yarnpkg.com/serializr/-/serializr-1.4.1.tgz#e10265d5305552f9c3d3accf7d5c1ec88acb96c1"
+  integrity sha512-ceOvqZIRP1Ch+sl7ZHs+QiB1Zh+MtDkQQuG82ywchOA6UrQSl/4gBVWhHkkgsuMBNLMP5QrFS7OFAMuQD/NzOQ==
+
 set-blocking@~2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/set-blocking/-/set-blocking-2.0.0.tgz#045f9782d011ae9a6803ddd382b24392b3d890f7"

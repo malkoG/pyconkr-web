@@ -26,6 +26,7 @@
     "next-routes": "^1.4.2",
     "react": "^16.7.0",
     "react-dom": "^16.7.0",
+    "serializr": "^1.4.1",
     "typescript": "^3.2.2"
   },
   "devDependencies": {

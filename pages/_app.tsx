@@ -1,18 +1,38 @@
-import withMstStore from "lib/with-mst-store"
 import App, { Container } from 'next/app'
 import { Provider } from 'mobx-react'
+import { MobxStores } from 'lib/stores'
+import { serialize, deserialize } from 'serializr'
 
-export type PropsType = {
-  stores: any;
-}
+class MyApp extends App {
 
-class MyApp extends App<PropsType> {
+  stores: MobxStores
+  constructor (props: any) {
+    super(props)
+    this.stores = deserialize(MobxStores, props.initialState)
+  }
+
+  static async getInitialProps (appContext: any) {
+
+    const mobxStores = new MobxStores()
+
+    // Provide the store to getInitialProps of pages
+    appContext.ctx.stores = mobxStores
+
+    let  appProps = await App.getInitialProps(appContext)
+
+
+    return {
+      ...appProps,
+      initialState: serialize(mobxStores),
+    }
+  }
+
   render () {
-    const { Component, pageProps, stores } = this.props
+    const { Component, pageProps } = this.props
 
     return (
       <Container>
-        <Provider stores={stores}>
+        <Provider stores={this.stores}>
           <Component {...pageProps} />
         </Provider>
       </Container>
@@ -20,4 +40,4 @@ class MyApp extends App<PropsType> {
   }
 }
 
-export default withMstStore(MyApp)
+export default MyApp
