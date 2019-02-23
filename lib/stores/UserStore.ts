@@ -7,5 +7,3 @@ export class UserStore {
     @serializable @observable email: string = '';
     @serializable @observable password: string = '';
 }
-
-

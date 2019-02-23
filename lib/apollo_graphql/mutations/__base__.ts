@@ -1,7 +1,6 @@
 import {
   ApolloClient,
-  DocumentNode,
-} from 'apollo-boost'
+} from 'apollo-client'
 
 export type MutationDefinitionType<
   MutationResult,
@@ -10,14 +9,14 @@ export type MutationDefinitionType<
   _type: '__MUTATION_DEFINITION_TYPE';
   resultTYPEHOLDER: MutationResult;
   varsTYPEHOLDER: MutationVars;
-  mutation: DocumentNode;
+  mutation: any;
 }
 
 export function createMutationDefinition<
   MutationResult,
   MutationVars,
 > (
-  mutation: DocumentNode,
+  mutation: any,
 ): MutationDefinitionType<MutationResult, MutationVars> {
   return {
     _type: '__MUTATION_DEFINITION_TYPE',
@@ -44,8 +43,8 @@ export function sendMutation<
   }
 }
 
-export function createMutation<MutationResult, MutationVars> (
-  mutation: DocumentNode,
+export function createMutationSender<MutationResult, MutationVars> (
+  mutation: any,
 ) {
   return (apolloClient: ApolloClient<any>) => {
     return (variables: MutationVars) =>

@@ -4,7 +4,7 @@ import {
 } from 'lib/apollo_graphql/__generated__/getSponsors'
 import {
   createQueryDefinition,
-  sendQuery
+  sendQuery,
 } from './__base__'
 import * as _getSponsors from './_getSponsors.graphql'
 
@@ -14,9 +14,9 @@ export const getSponsorsQueryDefinition = createQueryDefinition<
 >(_getSponsors)
 
 export const getSponsors = sendQuery(
-  getSponsorsQueryDefinition
+  getSponsorsQueryDefinition,
 )
 
 export {
-  SponsorType
+  SponsorType,
 }

@@ -1,7 +1,7 @@
-import App, { Container } from 'next/app'
-import { Provider } from 'mobx-react'
 import { MobxStores } from 'lib/stores'
-import { serialize, deserialize } from 'serializr'
+import { Provider } from 'mobx-react'
+import App, { Container } from 'next/app'
+import { deserialize, serialize } from 'serializr'
 
 class MyApp extends App {
 
@@ -14,12 +14,11 @@ class MyApp extends App {
   static async getInitialProps (appContext: any) {
 
     const mobxStores = new MobxStores()
-
+    console.log(mobxStores)
     // Provide the store to getInitialProps of pages
     appContext.ctx.stores = mobxStores
 
-    let  appProps = await App.getInitialProps(appContext)
-
+    const  appProps = await App.getInitialProps(appContext)
 
     return {
       ...appProps,

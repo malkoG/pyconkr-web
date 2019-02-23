@@ -1,0 +1,6 @@
+
+mutation OAuthTokenAuth($clientId: String!, $oauthType: String!, $code: String!) {
+    oAuthTokenAuth(clientId: $clientId, oauthType: $oauthType, code: $code) {
+        token
+    }
+}

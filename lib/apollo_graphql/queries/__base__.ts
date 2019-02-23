@@ -1,7 +1,7 @@
+
 import {
   ApolloClient,
-  DocumentNode,
-} from 'apollo-boost'
+} from 'apollo-client'
 import { ModifiableWatchQueryOptions } from 'apollo-client/core/watchQueryOptions';
 
 export type QueryDefinitionType<
@@ -11,10 +11,10 @@ export type QueryDefinitionType<
   _type: '__QUERY_DEFINITION_TYPE';
   resultTYPEHOLDER: QueryResult;
   varsTYPEHOLDER: QueryVars;
-  query: DocumentNode;
+  query: any;
 }
 export function createQueryDefinition<QueryResult, QueryVars> (
-  query: DocumentNode,
+  query: any,
 ): QueryDefinitionType<QueryResult, QueryVars> {
   return {
     _type: '__QUERY_DEFINITION_TYPE',
@@ -36,9 +36,7 @@ export function sendQuery<
         query: queryDefinition.query,
         variables,
         // context: {
-        //   headers: {
-        //     Authorization: getAuthorization(),
-        //   }
+        //   headers: getHeaders()
         // }
       })
   }
@@ -62,15 +60,3 @@ export function watchQuery<
       })
   }
 }
-
-// const storage = sessionStorage
-// const getAuthorization = (data: any) => {
-//   const session = storage.getSession()
-//   if (!data && !session) return
-
-//   const email = (data && data.email) || session.token
-//   const password = (data && data.password) || ''
-//   // Wrap with Base64 format basically like this -> Base64(email:password)
-//   const payload = Buffer.from(`${email}:${password}`).toString('base64')
-//   return `Basic ${payload}`
-// }

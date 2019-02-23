@@ -1,6 +1,6 @@
-import { observable, action } from 'mobx'
+import { action, observable } from 'mobx'
+import { serializable } from 'serializr'
 import { UserStore } from './UserStore'
-import { serializable } from 'serializr';
 
 export class TodoStore {
   @serializable @observable name: string = '';
@@ -18,7 +18,7 @@ export class TodoStore {
       // When selected value is empty, set as null
       this.user = null as any
     } else {
-      this.user = user as UserStore
+      this.user = user
     }
   }
 
