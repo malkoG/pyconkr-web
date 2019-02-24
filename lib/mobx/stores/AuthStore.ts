@@ -6,20 +6,36 @@ import { serializable } from 'serializr'
 // don't allow state modifications outside actions
 configure({ enforceActions: 'observed' })
 
+enum oAuthTypeEnum {
+  github = 'github',
+  google = 'google',
+  facebook = 'facebook',
+}
+
+enum clientIdEnum {
+  github = 'bc6a4bddabaa55004090',
+  google = '434664051101-ms06l6uja93lrjs3errmb73alb6dek1f.apps.googleusercontent.com',
+  facebook = '373255026827477',
+}
+
 export class AuthStore {
   @serializable @observable inProgress: boolean = false
   @serializable @observable state: string = 'pending'
-  @serializable @observable oAuthType: string = 'github'
-  @serializable @observable clientId: string = ''
-
-  @serializable @observable sampleVar: string = ''
+  @serializable @observable oAuthType?: oAuthTypeEnum
+  @serializable @observable clientId?: clientIdEnum
 
   @action
-  async getToken (code: string) {
-    if (this.oAuthType === 'github') this.clientId = 'bc6a4bddabaa55004090'
+  async setToken (code: string, oAuthType: string) {
+    this.oAuthType = oAuthTypeEnum.github
+    this.clientId = clientIdEnum[this.oAuthType]
 
     // Get AuthToken
-    const result = await getAuthToken(client)({ clientId: this.clientId, oauthType: 'github', code, redirectUri: 'http://localhost:3000/' })
+    const result = await getAuthToken(client)({
+      clientId: this.clientId,
+      oauthType: this.oAuthType,
+      code,
+      redirectUri: 'http://localhost:3000/',
+    })
 
     // If error on getting a token
     if (result.errors) {

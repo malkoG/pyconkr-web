@@ -1,4 +1,4 @@
-import { MobxStores, initializeStore } from 'lib/stores'
+import { initializeStore, MobxStores } from 'lib/mobx/MobxStores'
 import { Provider } from 'mobx-react'
 import App, { Container } from 'next/app'
 import { deserialize, serialize } from 'serializr'
