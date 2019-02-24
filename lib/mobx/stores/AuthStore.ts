@@ -1,7 +1,8 @@
 import { client } from 'lib/apollo_graphql/client'
 import { getAuthToken } from 'lib/apollo_graphql/mutations/getAuthToken'
 import { action, configure, observable } from 'mobx'
-import { serializable } from 'serializr'
+import { serializable, object } from 'serializr'
+import { ProfileStore } from './ProfileStore';
 
 // don't allow state modifications outside actions
 configure({ enforceActions: 'observed' })
@@ -23,6 +24,10 @@ export class AuthStore {
   @serializable @observable state: string = 'pending'
   @serializable @observable oAuthType?: oAuthTypeEnum
   @serializable @observable clientId?: clientIdEnum
+  @serializable(object(ProfileStore)) profileStore: ProfileStore
+  constructor(profileStore: ProfileStore) {
+    this.profileStore = profileStore
+  }
 
   @action
   async setToken (code: string, oAuthType: string) {
@@ -44,5 +49,8 @@ export class AuthStore {
 
     const token = result.data.oAuthTokenAuth.token
     localStorage.setItem('token', token)
+
+    const profile = this.profileStore.getProfile()
+    debugger;
   }
 }

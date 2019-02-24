@@ -13,12 +13,12 @@ export class MobxStores {
 
   constructor () {
     this.profileStore = new ProfileStore()
-    this.authStore = new AuthStore()
+    this.authStore = new AuthStore(this.profileStore)
     this.sponsorStore = new SponsorStore()
   }
 
   @action
-  async setTokenAndProfile(code: string) {
+  async login(code: string) {
     await this.authStore.setToken(code, 'github')
     const profile = await this.profileStore.getProfile()
     this.profileStore.setProfile(profile.data.me as ProfileType)

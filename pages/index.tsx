@@ -18,7 +18,7 @@ class Index extends React.Component<{stores: MobxStores}> {
 
       if (location.search.indexOf('code') === -1) return
       const { code } = parse(location.search, { ignoreQueryPrefix: true })
-      await stores.setTokenAndProfile(code)
+      await stores.login(code)
     }
 
     render () {
