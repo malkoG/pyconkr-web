@@ -1670,12 +1670,36 @@
             "deprecationReason": null
           },
           {
+            "name": "earlybirdStartedAt",
+            "description": "",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "DateTime",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "earlybirdFinishedAt",
+            "description": "",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "DateTime",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "presentationProposalStartedAt",
             "description": "",
             "args": [],
             "type": {
               "kind": "SCALAR",
-              "name": "Date",
+              "name": "DateTime",
               "ofType": null
             },
             "isDeprecated": false,
@@ -1687,7 +1711,7 @@
             "args": [],
             "type": {
               "kind": "SCALAR",
-              "name": "Date",
+              "name": "DateTime",
               "ofType": null
             },
             "isDeprecated": false,
@@ -1699,7 +1723,7 @@
             "args": [],
             "type": {
               "kind": "SCALAR",
-              "name": "Date",
+              "name": "DateTime",
               "ofType": null
             },
             "isDeprecated": false,
@@ -1711,7 +1735,7 @@
             "args": [],
             "type": {
               "kind": "SCALAR",
-              "name": "Date",
+              "name": "DateTime",
               "ofType": null
             },
             "isDeprecated": false,
@@ -1723,7 +1747,7 @@
             "args": [],
             "type": {
               "kind": "SCALAR",
-              "name": "Date",
+              "name": "DateTime",
               "ofType": null
             },
             "isDeprecated": false,
@@ -1735,7 +1759,7 @@
             "args": [],
             "type": {
               "kind": "SCALAR",
-              "name": "Date",
+              "name": "DateTime",
               "ofType": null
             },
             "isDeprecated": false,
@@ -1843,6 +1867,20 @@
               },
               {
                 "name": "oauthType",
+                "description": null,
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                "defaultValue": null
+              },
+              {
+                "name": "redirectUri",
                 "description": null,
                 "type": {
                   "kind": "NON_NULL",

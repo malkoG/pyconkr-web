@@ -1,10 +1,10 @@
-import React from 'react'
-import { inject, observer } from 'mobx-react'
 import Footer from 'components/organisms/Footer'
 import Header from 'components/organisms/Header'
 import PageTemplate from 'components/templates/PageTemplate'
 import { MobxStores } from 'lib/stores'
+import { inject, observer } from 'mobx-react'
 import { parse } from 'qs'
+import React from 'react'
 
 export type IndexPagePropsType = {
   stores: MobxStores;
@@ -16,24 +16,21 @@ class Index extends React.Component<{stores: MobxStores}> {
     async componentDidMount () {
       const { stores } = this.props
 
-      // await stores.authStore.login()
       if (location.search.indexOf('code') === -1) return
       const { code } = parse(location.search, { ignoreQueryPrefix: true })
-      console.log(location)
-      // await stores.authStore.getToken(code)
+      await stores.getTokenAndSetProfile(code)
     }
 
     render () {
       const { stores } = this.props
-      console.log(stores)
 
       return (
-      <PageTemplate
-        header={<Header />}
-        footer={<Footer />}
-      >
-        <span>Pycon HomePage</span>
-      </PageTemplate>
+        <PageTemplate
+          header={<Header title='파이콘 한국 2019' />}
+          footer={<Footer />}
+        >
+          <span>Pycon HomePage</span>
+        </PageTemplate>
       )
     }
 }

@@ -2,7 +2,7 @@
 import {
   ApolloClient,
 } from 'apollo-client'
-import { ModifiableWatchQueryOptions } from 'apollo-client/core/watchQueryOptions';
+import { ModifiableWatchQueryOptions } from 'apollo-client/core/watchQueryOptions'
 
 export type QueryDefinitionType<
   QueryResult,
@@ -35,9 +35,6 @@ export function sendQuery<
       apolloClient.query<QueryResult, QueryVars>({
         query: queryDefinition.query,
         variables,
-        // context: {
-        //   headers: getHeaders()
-        // }
       })
   }
 }

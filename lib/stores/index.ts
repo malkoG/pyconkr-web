@@ -1,22 +1,39 @@
-import { createModelSchema, object, serializable } from 'serializr'
+import { ProfileType } from 'lib/apollo_graphql/queries/getProfile'
+import { action } from 'mobx'
+import { object, serializable } from 'serializr'
 import { AuthStore } from './AuthStore'
-import { PresentationStore } from './PresentationStore'
-import { TodoStore } from './TodoStore'
-import { UserStore } from './UserStore'
+import { ProfileStore } from './ProfileStore'
 
 export class MobxStores {
 
-  @serializable(object(TodoStore)) todoStore: TodoStore
-  @serializable(object(AuthStore)) authStore: AuthStore
-  @serializable(object(UserStore)) userStore: UserStore
-  // @serializable presentationStore: PresentationStore
+  @serializable(object(AuthStore)) private authStore: AuthStore
+  @serializable(object(ProfileStore)) private profileStore: ProfileStore
 
   constructor () {
-    this.todoStore = new TodoStore()
-    this.userStore = new UserStore()
+    this.profileStore = new ProfileStore()
     this.authStore = new AuthStore()
-    // this.presentationStore = new PresentationStore()
+  }
+
+  @action
+  async getTokenAndSetProfile(code: string) {
+    await this.authStore.getToken(code)
+    const profile = await this.profileStore.getProfile()
+    this.profileStore.setProfile(profile.data.me as ProfileType)
   }
 }
 
-export type MobxStoresType = typeof MobxStores
+const isServer = typeof window === undefined
+let stores: MobxStores | null = null
+
+export function initializeStore() {
+  // Always make a new store if server, otherwise state is shared between requests
+  if (isServer) {
+    return new MobxStores()
+  }
+  if (stores === null) {
+    stores = new MobxStores()
+  }
+
+  return stores
+}
+

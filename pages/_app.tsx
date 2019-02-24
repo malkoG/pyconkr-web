@@ -1,4 +1,4 @@
-import { MobxStores } from 'lib/stores'
+import { MobxStores, initializeStore } from 'lib/stores'
 import { Provider } from 'mobx-react'
 import App, { Container } from 'next/app'
 import { deserialize, serialize } from 'serializr'
@@ -13,8 +13,8 @@ class MyApp extends App {
 
   static async getInitialProps (appContext: any) {
 
-    const mobxStores = new MobxStores()
-    console.log(mobxStores)
+    const mobxStores = initializeStore()
+
     // Provide the store to getInitialProps of pages
     appContext.ctx.stores = mobxStores
 

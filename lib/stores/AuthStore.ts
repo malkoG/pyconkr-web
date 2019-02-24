@@ -1,8 +1,7 @@
 import { client } from 'lib/apollo_graphql/client'
 import { getAuthToken } from 'lib/apollo_graphql/mutations/getAuthToken'
 import { action, configure, observable } from 'mobx'
-import { object, serializable } from 'serializr'
-import { UserStore } from './UserStore'
+import { serializable } from 'serializr'
 
 // don't allow state modifications outside actions
 configure({ enforceActions: 'observed' })
@@ -10,20 +9,24 @@ configure({ enforceActions: 'observed' })
 export class AuthStore {
   @serializable @observable inProgress: boolean = false
   @serializable @observable state: string = 'pending'
-  @serializable(object(UserStore)) @observable values?: UserStore
+  @serializable @observable oAuthType: string = 'github'
+  @serializable @observable clientId: string = ''
+
+  @serializable @observable sampleVar: string = ''
 
   @action
-  async login() {
-    this.inProgress = false
-    this.state = 'pending'
-    const result = await fetch('https://jsonplaceholder.typicode.com/todos/1')
-    const data = await result.json()
-  }
+  async getToken (code: string) {
+    if (this.oAuthType === 'github') this.clientId = 'bc6a4bddabaa55004090'
 
-  @action
-  async getToken (code: any) {
-    const token = await getAuthToken(client)({ clientId: 'clientId', oauthType: 'github', code })
-    debugger;
-    console.log(token)
+    // Get AuthToken
+    const result = await getAuthToken(client)({ clientId: this.clientId, oauthType: 'github', code, redirectUri: 'http://localhost:3000/' })
+
+    // If error on getting a token
+    if (result.errors) {
+      throw new Error(`Authentication is failed: ${result.errors}`)
+    }
+
+    const token = result.data.oAuthTokenAuth.token
+    localStorage.setItem('token', token)
   }
 }
