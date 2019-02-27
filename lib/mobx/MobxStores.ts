@@ -14,6 +14,7 @@ export class MobxStores {
   constructor () {
     this.profileStore = new ProfileStore()
     this.authStore = new AuthStore(this.profileStore)
+    // this.authStore = new AuthStore()
     this.sponsorStore = new SponsorStore()
   }
 

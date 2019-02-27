@@ -24,4 +24,9 @@ export class ProfileStore {
         this.profile = {...profile.profile}
         this.username = profile.username
     }
+
+    @action
+    setUserName(newName: string) {
+        this.username = newName
+    }
 }

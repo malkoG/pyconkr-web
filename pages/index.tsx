@@ -13,16 +13,25 @@ export type IndexPagePropsType = {
 @inject('stores')
 @observer
 class Index extends React.Component<{stores: MobxStores}> {
+
+    input: HTMLInputElement | null = null
+
     async componentDidMount () {
       const { stores } = this.props
 
       if (location.search.indexOf('code') === -1) return
       const { code } = parse(location.search, { ignoreQueryPrefix: true })
-      await stores.login(code)
+      // await stores.login(code)
+      await stores.authStore.setToken(code, 'github')
     }
 
+    onChangeName = () => {
+      const { stores } = this.props
+      stores.profileStore.setUserName((this.input && this.input.value) || stores.profileStore.username)
+    }
     render () {
       const { stores } = this.props
+      console.log(stores)
 
       return (
         <PageTemplate
@@ -30,6 +39,8 @@ class Index extends React.Component<{stores: MobxStores}> {
           footer={<Footer />}
         >
           <span>Pycon HomePage</span>
+          <input type='text' ref={input => this.input = input}/>
+          <input type='button' value='Change Name' onClick={this.onChangeName}/>
         </PageTemplate>
       )
     }
