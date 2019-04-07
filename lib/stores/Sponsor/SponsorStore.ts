@@ -1,12 +1,13 @@
 import { client } from 'lib/apollo_graphql/client'
 import { configure, observable, action } from 'mobx'
 import { SponsorLevelType, getSponsorLevels } from 'lib/apollo_graphql/queries/getSponsorLevels'
-import { createOrUpdateSponsor, SponsorNode } from 'lib/apollo_graphql/mutations/createOrUpdateSponsor';
+import { createOrUpdateSponsor } from 'lib/apollo_graphql/mutations/createOrUpdateSponsor';
 import { uploadBusinessRegistrationFile as uploadSponsorBusinessRegistrationFile } from 'lib/apollo_graphql/mutations/uploadBusinessRegistrationFile'
 import { uploadLogoImage as uploadSponsorLogoImage } from 'lib/apollo_graphql/mutations/uploadLogoImage'
 import { uploadLogoVector as uploadSponsorLogoVector } from 'lib/apollo_graphql/mutations/uploadLogoVector'
+import { SponsorNode } from './SponsorNode'
 
-configure({ enforceActions: 'always' })
+configure({ enforceActions: 'observed' })
 
 export enum SponsorFormStage {
     stage1 = 0,
@@ -17,8 +18,12 @@ export enum SponsorFormStage {
 export class SponsorStore {
     @observable isInitialized: boolean = false
     @observable sponsorLevels: SponsorLevelType[] = []
-    @observable proposal: SponsorNode | null = null
+    @observable proposal: SponsorNode
     @observable currentStage: SponsorFormStage = SponsorFormStage.stage1
+
+    constructor() {
+        this.proposal = new SponsorNode()
+    }
 
     @action
     async initialize() {
@@ -50,7 +55,6 @@ export class SponsorStore {
         this.proposal = {
             ...response.data.createOrUpdateSponsor.sponsor
         }
-
     }
 
     @action
@@ -59,11 +63,7 @@ export class SponsorStore {
             file
         })
         const fileUrl = response.data.uploadBusinessRegistrationFile.file
-        this.proposal = {
-            ...this.proposal,
-            businessRegistrationFile: fileUrl
-        }
-        return fileUrl
+        this.proposal.setBusinessRegistrationFile(fileUrl)
     }
 
     @action
@@ -72,10 +72,7 @@ export class SponsorStore {
             file
         })
         const fileUrl = response.data.uploadLogoImage.image
-        this.proposal = {
-            ...this.proposal,
-            logoImage: fileUrl
-        }
+        this.proposal.setLogoImage(fileUrl)
         return fileUrl
     }
 
@@ -85,10 +82,7 @@ export class SponsorStore {
             file
         })
         const fileUrl = response.data.uploadLogoVector.image
-        this.proposal = {
-            ...this.proposal,
-            logoVector: fileUrl
-        }
+        this.proposal.logoVector = fileUrl
         return fileUrl
     }
 }
