@@ -60,6 +60,7 @@
     "react-dom": "^16.7.0",
     "react-intl": "^2.8.0",
     "react-intl-universal": "^1.15.5",
+    "react-toastify": "^5.1.0",
     "universal-cookie": "^3.0.7"
   },
   "devDependencies": {
