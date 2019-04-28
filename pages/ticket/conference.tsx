@@ -17,6 +17,9 @@ import { DateDTO } from 'types/common'
 import { formatDateInWordsWithWeekdayAndTime } from 'utils/formatDate'
 import { StoresType } from '../_app'
 
+import styled from '@emotion/styled'
+import { mobileWidth } from 'styles/layout'
+
 export type IntlTextType = {
   intlKey: string;
   defaultText: string;
@@ -28,6 +31,149 @@ export type Schedule = {
   date: DateDTO;
   desc?: IntlTextType;
 }
+
+const TicketBox = styled.div`
+  border: 3px solid #088487;
+  border-radius: 2px;
+  display: flex;
+  min-height: 300px;
+  margin-bottom: 32px;
+  
+  // Not Open
+  // border: 1px solid #999999;
+
+  // SoldOut
+  // border: solid 1px #ababab;
+  // background-color: #f6f6f6;
+  
+  .description {
+    flex: 2;
+    display: flex;
+    flex-direction: column;
+    padding: 32px 0 20px 28px;
+
+    @media (max-width: ${mobileWidth}) {
+      display: block;
+    }
+
+    h1 {
+      font-size: 26px;
+      font-weight: bold;
+      color: #088487;
+      margin-bottom: 23px;
+
+      // Not Open
+      // color: #333;
+
+      // SoldOut
+      // color: #ababab;
+    }
+
+    p:nth-of-type(1) {
+      font-size: 15px;
+      line-height: 1.67;
+      color: #088487;
+
+      // Not Open
+      // color: #333;
+
+      // SoldOut
+      // color: #ababab;
+    }
+
+    p:nth-of-type(2) {
+      margin-top: auto;
+      font-size: 15px;
+      font-weight: bold;
+      line-height: 1.47;
+      color: #f95858;
+
+      // SoldOut
+      // color: #ababab;
+    }
+  }
+
+  .payment {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 29px 24px 20px 0;
+    border-left: 1px dashed #85c0c1;
+
+    p {
+      text-align: right;
+      font-size: 26px;
+      font-weight: bold;
+      color: #088487;
+
+      // SoldOut
+      // color: #ababab;
+    
+      input[type=tel] {
+        width: 157px;
+        height: 54px;
+        border-radius: 4px;
+        border: solid 1px #ced3d6;
+        background-color: #ffffff;
+        padding-right: 12px;
+        font-size: 21px;
+        text-align: right;
+      }
+    }
+
+    button {
+      width: 187px;
+      height: 54px;
+      background-color: #088487;
+      color: #FFF;
+      font-size: 18px;
+      margin-top: auto;
+      margin-left: auto;
+      outline: none;
+
+      // Not Open
+      // opacity: 0.4;
+
+      // SoldOut
+      // background-color: #9e9e9e;
+      // color: #FFF;
+    }
+  }
+
+  @media (max-width: ${mobileWidth}) {
+    display: block;
+
+    .description {
+      display: block;
+      padding: 29px 28px;
+
+      h1 {
+        margin-bottom: 35px;
+      }
+
+      p:nth-of-type(1) {
+        margin-bottom: 43px;
+      }
+    }
+
+    .payment {
+      display: block;
+      padding: 45px 0 36px 0;
+      border-left: none;
+      border-top: 1px dashed #85c0c1;
+      text-align: center;
+
+      p {
+        text-align: center;
+      }
+
+      button {
+        width: 85%;
+        margin: 25px 0 0 0;
+      }
+    }
+  }
+`
 
 @inject('stores')
 @observer
@@ -83,21 +229,39 @@ export default class ProposingATalk extends React.Component<{ stores: StoresType
         </Section>
 
         <Section>
-          <div>
-            <h1><IntlText intlKey='asdf'>얼리버드 티켓</IntlText></h1>
-            <p><IntlText intlKey='asdf'>프로그램 상세 내용이 정해지기도 전에 파이콘에 대한 애정만으로 남들보다 일찍 티켓을 구매하시는 분들을 위한 할인 티켓입니다. 한정된 수량을 판매하며 일반 티켓 가격에서 할인된 가격으로 판매합니다. 매년 파이콘 얼리버드 티켓은 순식간에 매진되므로 티켓 판매가 시작되는 4월 30일 오후 2시를 놓치지 마세요!</IntlText></p>
-            <p><IntlText intlKey='asdf'>얼리버드 등록은 환불되지 않습니다.</IntlText></p>
-          </div>
-          <div>
-            <h1><IntlText intlKey='asdf'>얼리버드 티켓</IntlText></h1>
-            <p><IntlText intlKey='asdf'>프로그램 상세 내용이 정해지기도 전에 파이콘에 대한 애정만으로 남들보다 일찍 티켓을 구매하시는 분들을 위한 할인 티켓입니다. 한정된 수량을 판매하며 일반 티켓 가격에서 할인된 가격으로 판매합니다. 매년 파이콘 얼리버드 티켓은 순식간에 매진되므로 티켓 판매가 시작되는 4월 30일 오후 2시를 놓치지 마세요!</IntlText></p>
-            <p><IntlText intlKey='asdf'>얼리버드 등록은 환불되지 않습니다.</IntlText></p>
-          </div>
-          <div>
-            <h1><IntlText intlKey='asdf'>얼리버드 티켓</IntlText></h1>
-            <p><IntlText intlKey='asdf'>프로그램 상세 내용이 정해지기도 전에 파이콘에 대한 애정만으로 남들보다 일찍 티켓을 구매하시는 분들을 위한 할인 티켓입니다. 한정된 수량을 판매하며 일반 티켓 가격에서 할인된 가격으로 판매합니다. 매년 파이콘 얼리버드 티켓은 순식간에 매진되므로 티켓 판매가 시작되는 4월 30일 오후 2시를 놓치지 마세요!</IntlText></p>
-            <p><IntlText intlKey='asdf'>얼리버드 등록은 환불되지 않습니다.</IntlText></p>
-          </div>
+          <TicketBox>
+            <div className='description'>
+              <h1>얼리버드 티켓</h1>
+              <p>프로그램 상세 내용이 정해지기도 전에 파이콘에 대한 애정만으로<br />티켓을 구매하시는 분들을 위한 할인 티켓입니다.<br/>한정된 수량을 판매합니다.</p>
+              <p>얼리버드 등록은 환불되지 않습니다.</p>
+            </div>
+            <div class='payment'>
+              <p>₩ 50,000</p>
+              <button>구매하기</button>
+            </div>
+          </TicketBox>
+          <TicketBox>
+            <div className='description'>
+              <h1>일반 티켓</h1>
+              <p>파이콘 한국 2019 일반 티켓은 한정된 수량만 판매됩니다. 조기 매진이 될 가능성이 있으니 서둘러 구매해주세요!</p>
+              <p>취소, 환불 기한: 2019년 8월 17일 금 오후 6시까지</p>
+            </div>
+            <div class='payment'>
+              <p>₩ 70,000</p>
+              <button>구매하기</button>
+            </div>
+          </TicketBox>
+          <TicketBox>
+            <div className='description'>
+              <h1>개인 후원 티켓</h1>
+              <p>파이콘 후원 티켓 판매 대금은 재정 지원 예산으로 사용됩니다.<br/>후원 금액은 15만원 이상 자율적으로 지정할수 있습니다.<br/>후원 금액에 상관없이 1장의 파이콘 한국 2019 티켓을 제공합니다.</p>
+              <p>후원 티켓은 양도나 취소, 환불할 수 없습니다.</p>
+            </div>
+            <div class='payment'>
+              <p>₩ <input type='tel' placeholder='150000' min='150000' /></p>
+              <button>구매하기</button>
+            </div>
+          </TicketBox>
         </Section>
 
         <Section>
