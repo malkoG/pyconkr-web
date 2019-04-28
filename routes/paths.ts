@@ -22,7 +22,7 @@ export const paths = {
     tutorial: '/ticket/tutorial',
     sprint: '/ticket/sprint',
     youngcoder: '/ticket/youngcoder',
-    child_care: '/ticket/child_care',
+    childcare: '/ticket/childcare',
   },
   sponsor: {
     base: '/sponsor',
@@ -152,8 +152,8 @@ export const ticketMenu: WithSubMenu = {
     },
     {
       title: '아이 돌봄',
-      intlKey: 'gnb.ticket.child_care',
-      link: paths.ticket.child_care
+      intlKey: 'gnb.ticket.childcare',
+      link: paths.ticket.childcare
     }
   ]
 }

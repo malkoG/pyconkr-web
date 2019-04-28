@@ -1,3 +1,13 @@
 {
-    "contact": "문의"   
+    "contact": "문의",
+    "status": {
+        "onProgress": "진행 중",
+        "preparing": "준비 중",
+        "openBefore": "Open D-{diff}",
+        "openToday": "Open Soon Today",
+        "closeAfter": "Close D-{diff}",
+        "closed": "마감되었습니다.",
+        "untilSelected": "마감 시까지",
+        "conferenceDays": "Conference Days"
+    }
 }

@@ -1,13 +1,15 @@
 
 import { H1, Paragraph } from 'components/atoms/ContentWrappers'
 import { IntlText } from 'components/atoms/IntlText'
+import { Loading } from 'components/atoms/Loading'
+import DefaultTable, { Contribution } from 'components/organisms/DefaultTable'
 import Footer from 'components/organisms/Footer'
 import Header from 'components/organisms/Header'
-import MyContribution from 'components/organisms/MyContribution'
 import PageTemplate from 'components/templates/PageTemplate'
 import { inject, observer } from 'mobx-react'
 import { RouterProps, withRouter } from 'next/router'
 import React from 'react'
+import { paths } from 'routes/paths'
 import { withNamespaces } from '../../i18n'
 import { StoresType } from '../_app'
 
@@ -19,7 +21,8 @@ type PropsType = {
 @inject('stores')
 @(withRouter as any)
 @observer
-class Contribution extends React.Component<PropsType> {
+class ContributionPage extends React.Component<PropsType> {
+  contributions: Contribution[] = []
 
   static async getInitialProps() {
     return {
@@ -36,6 +39,53 @@ class Contribution extends React.Component<PropsType> {
 
   render() {
     const { stores } = this.props
+    const { sponsorStore, cfpStore, scheduleStore } = stores
+    const { schedule } = scheduleStore
+
+    if (!cfpStore.isInitialized || !sponsorStore.isInitialized) {
+      return <Loading width={50} height={50}/>
+    }
+
+    this.contributions = [{
+      title: '발표안 제안',
+      intlKey: 'contribute.overview.table.talk',
+      openDate: schedule.presentationProposalStartAt,
+      closeDate: schedule.presentationProposalFinishAt,
+      link: paths.contribute.proposingATalk,
+      editLink: paths.account.editproposal.cfp,
+      isMyContribution: cfpStore.isProposalInitialized
+    }, {
+      title: '스폰서 제안',
+      intlKey: 'contribute.overview.table.talk',
+      openDate: schedule.sponsorProposalStartAt,
+      closeDate: schedule.sponsorProposalFinishAt,
+      link: paths.sponsor.applicationForm,
+      editLink: paths.account.editproposal.cfs,
+      isMyContribution: sponsorStore.isProposalInitialized
+    }, {
+      title: '튜토리얼 제안',
+      intlKey: 'contribute.overview.table.tutorial',
+      openDate: schedule.tutorialProposalStartAt,
+      closeDate: schedule.tutorialProposalFinishAt,
+    }, {
+      title: '스프린트 제안',
+      intlKey: 'contribute.overview.table.sprint',
+      openDate: schedule.sprintProposalStartAt,
+    }, {
+      title: '자원봉사자 모집',
+      intlKey: 'contribute.overview.table.volunteer',
+      openDate: schedule.volunteerRecruitingStartAt,
+      closeDate: schedule.volunteerRecruitingFinishAt,
+    }, {
+      title: '라이트닝 토크 신청',
+      intlKey: 'contribute.overview.table.lightingtalk',
+      openDate: schedule.lightningTalkProposalStartAt,
+      closeDate: schedule.lightningTalkProposalFinishAt,
+      dateDescription: {
+        default: '컨퍼런스 당일',
+        intlKey: 'common.status.conferenceDays'
+      }
+    }]
 
     return (
       <PageTemplate
@@ -49,10 +99,13 @@ class Contribution extends React.Component<PropsType> {
           파이콘 한국 2019 에 제안 또는 신청한 내역입니다.<br/>
           파이콘 한국 준비위원회 내부 검토 이후 최종 확정 등의 절차 관련 내용은 메일로 다시 안내드리도록 하겠습니다.
         </Paragraph>
-        <MyContribution stores={stores} />
+        <DefaultTable
+          stores={stores}
+          contributions={this.contributions}
+        />
       </PageTemplate>
     )
   }
 }
 
-export default withNamespaces('account')(Contribution)
+export default withNamespaces('account')(ContributionPage)

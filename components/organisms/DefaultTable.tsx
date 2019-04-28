@@ -1,5 +1,6 @@
 import { ContentTableWrapper, TableWithBg, TBody } from 'components/atoms/ContentWrappers'
 import ContributionTableRow from 'components/molecules/ContributionTableRow'
+import TicketTableRow from 'components/molecules/TicketTableRow'
 import { SponsorNode } from 'lib/stores/Sponsor/SponsorNode'
 import _ from 'lodash'
 import { toJS } from 'mobx'
@@ -23,11 +24,23 @@ export type Contribution = {
     isMyContribution?: boolean;
 }
 
+export type Ticket = {
+    title?: string;
+    intlKey?: string;
+    openDate?: string;
+    closeDate?: string;
+    link?: string;
+    editLink?: string;
+    dateDescription?: DateDescription;
+}
+
 type PropsType = {
-    contributions: Contribution[];
+    contributions?: Contribution[];
+    tickets?: Ticket[];
     stores: StoresType;
 }
-export default class ContributionTable extends React.Component<PropsType> {
+
+export default class DefaultTable extends React.Component<PropsType> {
     getProposalList () {
         const { stores } = this.props
         const proposals = []
@@ -46,7 +59,7 @@ export default class ContributionTable extends React.Component<PropsType> {
         const proposals = this.getProposalList()
 
         return (
-            contributions.map((contribution, index) => {
+            contributions && contributions.map((contribution, index) => {
                 const proposal = proposals[index]
                 const isSumitted = proposal && proposal.submitted
                 const isSponsorPaid = proposal && (proposal as SponsorNode).paidAt
@@ -70,12 +83,34 @@ export default class ContributionTable extends React.Component<PropsType> {
         )
     }
 
+    renderTicketsTablesRow () {
+        const { tickets } = this.props
+
+        return (
+            tickets && tickets.map((ticket) => {
+
+                return (
+                    <TicketTableRow
+                        ticket={ticket}
+                    />
+                )
+            })
+        )
+    }
+
     render() {
+        const { contributions, tickets } = this.props
+
         return (
             <ContentTableWrapper>
                 <TableWithBg>
                     <TBody>
-                        {this.renderContributionTableRow()}
+                        {contributions
+                            && contributions.length > 0
+                            && this.renderContributionTableRow()}
+                        {tickets
+                            && tickets.length > 0
+                            && this.renderTicketsTablesRow()}
                     </TBody>
                 </TableWithBg>
             </ContentTableWrapper>

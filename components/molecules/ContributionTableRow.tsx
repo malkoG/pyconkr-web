@@ -2,7 +2,7 @@
 import styled from '@emotion/styled-base'
 import { Button } from 'components/atoms/Button'
 import { isBold, Td, Tr } from 'components/atoms/ContentWrappers'
-import { Contribution } from 'components/organisms/ContributionTable'
+import { Contribution } from 'components/organisms/DefaultTable'
 import { differenceInCalendarDays, isFuture, isPast } from 'date-fns'
 import _ from 'lodash'
 import React from 'react'
@@ -19,6 +19,7 @@ padding: 10px;
 text-align: center;
 }
 `
+
 type PropsType = {
     isProposalSubmitted?: boolean;
     isMyContribution?: boolean;
